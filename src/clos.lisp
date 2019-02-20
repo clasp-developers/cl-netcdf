@@ -141,19 +141,6 @@
                           cdata)))
 
 (defun get-vara-double (cdf var-name start count data)
-  (cffi:with-foreign-objects ((cdata :double (first (array-dimensions data)))
-                              (ccount :int64 (first (array-dimensions count)))
-                              (cstart :int64 (first (array-dimensions start))))
-    (copy-array-to-cffi start cstart :int64)
-    (copy-array-to-cffi count ccount :int64)
-    (prog1
-        (nc-c:get-vara-double (id cdf) (get-variable cdf var-name)
-                              cstart
-                              ccount
-                              cdata)
-      (copy-array-from-cffi cdata data :double))))
-
-(defun get-vara-double-static (cdf var-name start count data)
   (cffi:with-foreign-objects ((ccount :int64 (first (array-dimensions count)))
                               (cstart :int64 (first (array-dimensions start))))
     (copy-array-to-cffi start cstart :int64)
@@ -162,6 +149,16 @@
                           cstart
                           ccount
                           (static-vectors:static-vector-pointer data))))
+
+(defun get-vara-float (cdf var-name start count data)
+  (cffi:with-foreign-objects ((ccount :int64 (first (array-dimensions count)))
+                              (cstart :int64 (first (array-dimensions start))))
+    (copy-array-to-cffi start cstart :int64)
+    (copy-array-to-cffi count ccount :int64)
+    (nc-c:get-vara-float (id cdf) (get-variable cdf var-name)
+                         cstart
+                         ccount
+                         (static-vectors:static-vector-pointer data))))
 
 (defun put-att-text (cdf var-name attribut value)
   (let ((var (if (eq nc-c:+global+ var-name)

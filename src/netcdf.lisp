@@ -4,16 +4,13 @@
 ;;; Do not make changes to this file unless you know what you are doing--modify
 ;;; the SWIG interface file instead.
 
- (defpackage :netcdf-cffi
-        (:nicknames :nc-c)
-	(:use :cffi))
- (in-package :netcdf-cffi)
+(in-package :netcdf-cffi)
 
- (define-foreign-library libnetcdf
+(define-foreign-library libnetcdf
     (:unix "libnetcdf.dylib")
-    (t (:default "libnetcdf")))
+  (t (:default "libnetcdf")))
 
- (use-foreign-library libnetcdf)
+(use-foreign-library libnetcdf)
 
 ;;;SWIG wrapper code starts here
 
