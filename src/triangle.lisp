@@ -55,13 +55,15 @@
                         ((constant enumvalue) "+")
                         (variable "*")
                         (cl:t ""))))
-          (cl:intern
-           (cl:concatenate
-            'cl:string
-            fix
-            (cl:nreverse (helper (cl:concatenate 'cl:list name) cl:nil cl:nil))
-            fix)
-           package))))))
+          (let ((symbol (cl:intern
+                         (cl:concatenate
+                          'cl:string
+                          fix
+                          (cl:nreverse (helper (cl:concatenate 'cl:list name) cl:nil cl:nil))
+                          fix)
+                         package)))
+            (format t "swig-lispify ~s -> ~s~%" name symbol)
+            symbol))))))
 
 ;;;SWIG wrapper code ends here
 

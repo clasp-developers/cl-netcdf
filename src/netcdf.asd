@@ -1,8 +1,5 @@
 ;; -*- coding: utf-8; -*-
-(defpackage :netcdf-asdf
-  (:use :asdf))
-
-(in-package :netcdf-asdf)
+(in-package :asdf)
 
 (defsystem "netcdf"
   :description ""
@@ -10,7 +7,8 @@
   :licence "None"
   :depends-on (:cffi)
   :components (
+               (:file "packages")
 	       (:file "netcdf")
-	       (:file "triangle")
-	       (:file "clos" :depends-on ("netcdf" "triangle"))
+	       #+(or)(:file "triangle")
+	       (:file "clos" :depends-on ("netcdf" #+(or)"triangle"))
 	       ))
