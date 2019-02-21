@@ -5,7 +5,7 @@
   :description ""
   :author       "Valvassori Moïse <moise@valvassori.org>"
   :licence "None"
-  :depends-on (:cffi)
+  :depends-on (:cffi :static-vectors)
   :components (
                (:file "packages")
 	       (:file "netcdf")
