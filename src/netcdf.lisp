@@ -7,7 +7,8 @@
 (in-package :netcdf-cffi)
 
 (define-foreign-library libnetcdf
-    (:unix "libnetcdf.dylib")
+    (:darwin "libnetcdf.dylib")
+    (:unix "libnetcdf.so")
   (t (:default "libnetcdf")))
 
 (use-foreign-library libnetcdf)
