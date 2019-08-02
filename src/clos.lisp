@@ -283,20 +283,23 @@
                (setf (gethash name atts-ht) att)))
     atts-ht))
 
-(defun nc-open (path &key mode)
+(defun nc-open (path &key (mode netcdf-cffi:+nowrite+))
   (cffi:with-foreign-objects ((ncid :int))
-    (cffi:with-foreign-string (spath (namestring path))
-      (let ((result (nc-c:open spath mode ncid)))
-        (unless (= result 0)
-          (error "Could not open netcdf file ~s result -> ~d~%" path result))
-        (let ((id (cffi:mem-ref ncid :int)))
-          (multiple-value-bind (ndims nvars natts unlimdimid)
-              (nc-inq id)
-            (format t "natts -> ~a~%" natts)
-            (make-instance 'netcdf::netcdf :id id
-                                           :dimensions (read-dims id ndims)
-                                           :variables (read-variables id nvars)
-                                           :global-attributes (read-global-attributes id natts))))))))
+    (let ((true-path (probe-file path)))
+      (unless true-path
+        (error "Could not find file ~a to open it" path))
+      (cffi:with-foreign-string (spath (namestring path))
+        (let ((result (nc-c:open true-path mode ncid)))
+          (unless (= result 0)
+            (error "Could not open netcdf file ~s result -> ~d~%" path result))
+          (let ((id (cffi:mem-ref ncid :int)))
+            (multiple-value-bind (ndims nvars natts unlimdimid)
+                (nc-inq id)
+              (format t "natts -> ~a~%" natts)
+              (make-instance 'netcdf::netcdf :id id
+                                             :dimensions (read-dims id ndims)
+                                             :variables (read-variables id nvars)
+                                             :global-attributes (read-global-attributes id natts)))))))))
 
 
 #+(or)
