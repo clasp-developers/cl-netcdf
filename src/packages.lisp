@@ -36,5 +36,6 @@
    #:varid
    #:get-vara-double-static
    #:get-vara-float
+   #:get-vara-double
    ))
 
