@@ -52,7 +52,7 @@
 								      value)))))))
     (nc:nc-close cdf)))
 
-B(defun run-example ()
+(defun run-example ()
   (example :points '((0.0 0.0) (2.0 4.0) (1.0 3.0) (3.0 2.0))
 	   :data '(("a" (0 (1.0 2.0 3.0 4.0)) (1 (2.0 4.0 5.0 6.0)))
 		   ("b" (0 (2.0 3.0 4.0 5.0)) (1 (4.0 5.0 6.0 2.0)))
