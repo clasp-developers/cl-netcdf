@@ -3,7 +3,7 @@
 
 (defsystem "netcdf"
   :description ""
-  :author       "Valvassori Moïse <moise@valvassori.org>"
+  :author       "Valvassori Mose <moise@valvassori.org>"
   :licence "None"
   :depends-on (:cffi :static-vectors)
   :components (
